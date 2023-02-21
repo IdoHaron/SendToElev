@@ -1,0 +1,3 @@
+.idea
+*.pyc
+input_pipelines/email/login_details.py
