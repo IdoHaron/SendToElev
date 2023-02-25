@@ -4,7 +4,7 @@ from server.utils import ServerState
 
 
 class FlaskServer(Server):
-    _SERVER: Flask = None
+    _SERVER: Flask = Flask(__name__)
     def __init__(self, wanted_module_name: str = __name__):
         self.wanted_module_name = wanted_module_name
         self.server_state = ServerState.DOWN
@@ -40,4 +40,8 @@ class FlaskServer(Server):
             return self.server_sleep()
         if wanted_server_state is ServerState.DOWN:
             return self.server_down()
+
+    @property
+    def sever_state(self) -> ServerState:
+        return self.server_state
 

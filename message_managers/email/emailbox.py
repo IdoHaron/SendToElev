@@ -1,8 +1,8 @@
-from input_pipelines.message_manager import MessageManager
-from input_pipelines.email.login_details import mail_address, mail_host, password
+from message_managers.message_manager import MessageManager
+from message_managers.email.login_details import mail_address, mail_host, password
 from imaplib import IMAP4_SSL
 from datetime import datetime
-from general_types.message import Message
+from utils.data_types.message import Message
 from typing import List, Union
 from email.header import decode_header
 from email import message_from_bytes

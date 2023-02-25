@@ -5,12 +5,12 @@ OnMessageReceive = Callable[[str], None]
 
 
 class MessageManager:
-
     @property
     @abstractmethod
     def text_destination(self):
-        raise NotImplemented
+        raise NotImplementedError
 
     @abstractmethod
-    def get_new_messages(self):
-        raise NotImplemented
+    def get_new_messages(self, client_id:str):
+        raise NotImplementedError
+
