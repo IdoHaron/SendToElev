@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from utils.data_types.message import Message
-from message_managers.message_manager import MessageManager
+from input_pipelines.input_pipeline import InputPipeline
 from typing import List
 from security_modules.security_module import SecurityModule
 
@@ -8,7 +8,7 @@ from security_modules.security_module import SecurityModule
 class MessageServer:
     __slots__ = ["_message_manager", "_security_module"]
     @abstractmethod
-    def __init__(self, message_manger:MessageManager, security_module:SecurityModule):
+    def __init__(self, message_manger:InputPipeline, security_module:SecurityModule):
         self._message_manager = message_manger
         self._security_module =  security_module
 

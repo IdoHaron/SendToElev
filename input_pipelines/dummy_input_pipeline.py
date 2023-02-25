@@ -1,7 +1,6 @@
-from message_managers.message_manager import MessageManager
+from input_pipelines.input_pipeline import InputPipeline
 
-
-class DummyMessageManager(MessageManager):
+class DummyInput(InputPipeline):
     text_destination = ""
 
     def get_new_messages(self, client_id: str):

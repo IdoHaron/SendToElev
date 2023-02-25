@@ -1,5 +1,5 @@
 from input_pipelines.input_pipeline import InputPipeline, OnMessageReceive
-from input_pipelines.email.login_details import mail_address, mail_host, password
+from message_managers.email.login_details import mail_address, mail_host, password
 from imaplib import IMAP4_SSL
 from datetime import datetime
 from input_pipelines.message import Message
@@ -15,7 +15,7 @@ class EmailBox(InputPipeline):
     _MIN_FETCH_INBOX_TIME = 50
     __slots__ = ["__connection", "__last_time_email_checked", "__num_emails", "__inbox_fetch_time"]
 
-    def __init__(self, on_email_receive: OnMessageReceive, last_time_emails_checked: Union[datetime, None] = None):
+    def __init__(self, on_email_receive: OnMessageReceive=None, last_time_emails_checked: Union[datetime, None] = None):
         super().__init__(on_email_receive)
         self.__connection = self.__connect_to_email_server()
         self.__last_time_email_checked = last_time_emails_checked
@@ -46,5 +46,5 @@ class EmailBox(InputPipeline):
                     date = decode_header(msg["Date"])[0][0]
                     print(date)
 
-    def get_new_messages(self) -> List[Message]:
+    def get_new_messages(self, client_id:str) -> List[Message]:
         return self.__get_messages_in_window(self.__last_time_email_checked, datetime.now())

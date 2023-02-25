@@ -2,16 +2,16 @@ from typing import List
 
 from email_server.message_server import MessageServer
 from server.flask_server.flask_server import FlaskServer
-from message_managers.message_manager import MessageManager
+from input_pipelines.input_pipeline import InputPipeline
 from utils.data_types.message import Message
 from security_modules.security_module import SecurityModule
 from utils.decorators import singleton
 
-
+@singleton
 class FlaskMessageServer(FlaskServer, MessageServer):
     server_instace = None
 
-    def __init__(self, message_manager: MessageManager, security_module: SecurityModule,
+    def __init__(self, message_manager: InputPipeline, security_module: SecurityModule,
                  wanted_module_name: str = __name__,
                  host: str = "127.0.0.1", port: int = 3000):
         FlaskServer.__init__(self, wanted_module_name=wanted_module_name)
