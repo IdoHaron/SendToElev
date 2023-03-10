@@ -6,4 +6,4 @@ from input_pipelines.dummy_input_pipeline import DummyInput
 
 FlaskMessageServer(DummyInput(), EverythingPasses())
 
-
+#TODO(Ido): should implement an elevator side test, for the fetching ETC.

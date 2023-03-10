@@ -3,6 +3,7 @@ from utils.data_types.message import Message
 from input_pipelines.input_pipeline import InputPipeline
 from typing import List
 from security_modules.security_module import SecurityModule
+from flask_login import login_manager
 
 
 class MessageServer:

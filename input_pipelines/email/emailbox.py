@@ -1,6 +1,6 @@
 from input_pipelines.input_pipeline import InputPipeline, OnMessageReceive
-from message_managers.email.login_details import mail_address, mail_host, password
-from imaplib import IMAP4_SSL
+from input_pipelines.email.login_details import mail_address, mail_host, password
+from imaplib import IMAP4
 from datetime import datetime
 from input_pipelines.message import Message
 from typing import List, Union
@@ -22,8 +22,8 @@ class EmailBox(InputPipeline):
         self.__fetch_emails()
 
     @staticmethod
-    def __connect_to_email_server() -> IMAP4_SSL:
-        mail_connection = IMAP4_SSL(host=mail_host)
+    def __connect_to_email_server() -> IMAP4:
+        mail_connection = IMAP4(host=mail_host)
         mail_connection.login(user=mail_address, password=password)
         return mail_connection
 
