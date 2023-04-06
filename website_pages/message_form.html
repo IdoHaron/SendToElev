@@ -1,11 +1,31 @@
 <html>
-    <head> </head>
+    <head>
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
+    <img hidden src="{{url_for('static', filename='morn_format.png')}}" name="morn_format_image"> 
+    <h1 style="visibility:hidden">{{url_for('static', filename='morn_format.png')}}</h1>
+    <!--<img hiddn src="{{url_for('static', filename='birthday_format.png')}}" name="name_format">-->
+
+    </head>
     <body>
-        <form action="/new_image" method="POST" >
-            <input type="text" placeholder="enter_wanted_text" name="message_text" required>
-            <input type="dropdown" placeholder="clean" name="template" required>
-            <input type="dropdown" placeholder="choose board" name="board_name" required>
-            <button type="submit" value="Submit">login</button>
+        <form action="/new_image" method="POST" id="message_construct" >
+            <input type="text" placeholder="enter_wanted_text" name="content" required>
+            <! --- <input type="dropdown" placeholder="clean" name="template" required>
+            <! --- <input type="dropdown" placeholder="choose board" name="board_name" required>
+            <br>
+            <select name="template">
+                {{templates}}
+            </select>
+            <br>
+            <select name="board">
+                {% for board in boards: %}
+                    <option value={{board}}>{{board}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button value="show">show final message</button>
+            <button type="submit" value="Submit">send message request</button>
+            <script src="{{url_for('static', filename='NetworkUtils.js')}}"></script>
+            <script src="{{url_for('static', filename='format_message.js')}}"></script>
         </form>
     </body>
 </html>
