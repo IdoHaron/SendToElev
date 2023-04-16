@@ -1,31 +1,44 @@
 <html>
     <head>
     <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
-    <img hidden src="{{url_for('static', filename='morn_format.png')}}" name="morn_format_image"> 
-    <h1 style="visibility:hidden">{{url_for('static', filename='morn_format.png')}}</h1>
+    <script src="{{url_for('static', filename='NetworkUtils.js')}}"></script>
+    <script src="{{url_for('static', filename='format_message.js')}}"></script>
+    <script src="{{url_for('static', filename='utils.js')}}"></script>
+    <script src="{{url_for('static', filename='form_scripts/image_canvas.js')}}"></script>
+    <script src="{{url_for('static', filename='form_scripts/image_upload_manaement.js')}}"></script>
+    <script src="{{url_for('static', filename='form_scripts/image_source_managment.js')}}"></script>
+    <script src="{{url_for('static', filename='form_scripts/events.js')}}"></script>
+    <!--img hidden src="{{url_for('static', filename='morn_format.png')}}" name="morn_format_image"> 
     <!--<img hiddn src="{{url_for('static', filename='birthday_format.png')}}" name="name_format">-->
 
+    <!--action="/new_image"-->
     </head>
-    <body>
-        <form action="/new_image" method="POST" id="message_construct" >
-            <input type="text" placeholder="enter_wanted_text" name="content" required>
+    <body onload="onload_body()">
+        <form method="POST" id="message_construct"  action="/new_image">
             <! --- <input type="dropdown" placeholder="clean" name="template" required>
             <! --- <input type="dropdown" placeholder="choose board" name="board_name" required>
             <br>
-            <select name="template">
-                {{templates}}
+            choose base image origin: 
+            <select id="template_or_user_image" onchange="ImgSrcManagement.update_input_option(this)">
+                <option value="templates" selected="selected">templates</option>
+                <option value="user_image">upload image</option>
             </select>
+            <select id="templates">
+                {% for template in templates: %}
+                    <option id="{{template}}" name="template_options">{{template}}</option>
+                {% endfor %}
+            </select>
+            <input type="file" id="user_image" name="user_image" accept=".jpg, .jpeg, .png" onchange="UserFileUpload.on_file_upload(this)">
             <br>
-            <select name="board">
+            choose board:
+            <select id="board">
                 {% for board in boards: %}
                     <option value={{board}}>{{board}}</option>
                 {% endfor %}
             </select>
             <br>
-            <button value="show">show final message</button>
-            <button type="submit" value="Submit">send message request</button>
-            <script src="{{url_for('static', filename='NetworkUtils.js')}}"></script>
-            <script src="{{url_for('static', filename='format_message.js')}}"></script>
+            <button value="send_image" onclick="sumbit_editied_image(event)">send message request</button>
         </form>
+        <canvas id="edit_image_canvas" width="200" height="100"></canvas>
     </body>
 </html>

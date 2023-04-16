@@ -1,6 +1,7 @@
 from databases.data_map import MapDB
 from pathlib import Path
 from abc import ABC, abstractmethod
+from typing import List
 
 
 class TemplatesDB(MapDB, ABC):
@@ -14,4 +15,8 @@ class TemplatesDB(MapDB, ABC):
 
     @abstractmethod
     def _load_db(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_all_templates(self)->List[str]:
         raise NotImplementedError

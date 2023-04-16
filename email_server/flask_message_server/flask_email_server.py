@@ -8,6 +8,7 @@ from flask import render_template, request, redirect
 from input_pipelines.input_pipeline import InputPipeline
 from utils.decorators import singleton
 from security_modules.security_module import SecurityModule
+from json import loads
 from flask_login import LoginManager, login_user, login_required,current_user
 from pathlib import Path
 from importlib import reload
@@ -19,7 +20,7 @@ from databases.screen_dbs.screen_db import ScreenDB
 
 #TODO(ido): should figure-out how 
 
-@singleton
+# @singleton
 class FlaskMessageServer(FlaskServer, MessageServer):
     server_instace:FlaskMessageServer = None
     board_select_name = "board"
@@ -43,7 +44,7 @@ class FlaskMessageServer(FlaskServer, MessageServer):
 
 
     @staticmethod
-    @FlaskServer._SERVER.route("/<board_id>/<security_details>")
+    @FlaskServer._SERVER.route("/fetch_messages/<board_id>/<security_details>")
     def client_fetch_new_messages(board_id: str, security_details: str) -> str:
         #TODO(ido): move security details from 
         if not FlaskMessageServer.server_instace._security_module.fetch_and_verify_user(board_id, security_details):
@@ -79,6 +80,7 @@ class FlaskMessageServer(FlaskServer, MessageServer):
     def message_form_window():
         #TODO(Ido): might be worth to unite with the post location
         #TODO(Ido): read about serving with images, think about how to make the templates dynamic so other templates could be showed.
+
         connected_user_id = current_user.get_id()
         server_instance = FlaskMessageServer.server_instace
         boards= server_instance.user_to_screen_db_class.fetch_info_by_id(connected_user_id)
@@ -87,13 +89,18 @@ class FlaskMessageServer(FlaskServer, MessageServer):
             constructed__boards_string += string_to_select_entry(board.board_name)
         constructed__boards_string+= end_select_entry()
         print(constructed__boards_string)
-        return render_template("message_form.html", boards=[board.board_name for board in boards])
+        return render_template("message_form.html", boards=[board.board_name for board in boards],
+                               templates=FlaskMessageServer.server_instace._template_db.get_all_templates()
+                               )
 
     @staticmethod
-    @FlaskServer._SERVER.route("/image", methods=["POST"])
+    @FlaskServer._SERVER.route("/new_image", methods=["POST"])
     @login_required
     def new_image():
-        board_name, image_in_code = request.form["board_name"], request.form["image"]
+        data = loads(request.data.decode("ASCII"))
+        FlaskMessageServer.server_instace._screen_db.modify_screen(data["destination"],data["image"])
+        return ""
+        # board_name, image_in_code = request.form["board_name"], request.form["image"]
 
 
     @staticmethod
@@ -108,7 +115,8 @@ class FlaskMessageServer(FlaskServer, MessageServer):
 
     @staticmethod
     @FlaskServer._SERVER.route("/elevator/<elevator_id>")
-    def template_fetch(elevator_id:str):
+    def fetch_image_for_elevator(elevator_id:str):
         if  FlaskMessageServer.server_instace._screen_db.legal_screen_id(elevator_id):
-            return render_template("elevator_client.html", screen_id=elevator_id)
+            return render_template("elevator_client.html", screen_id=elevator_id,
+                                   current_img=FlaskMessageServer.server_instace._screen_db.get_image(elevator_id))
         return "sorry, page not found"

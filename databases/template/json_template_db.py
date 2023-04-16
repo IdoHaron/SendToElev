@@ -29,3 +29,6 @@ class JsonTemplatesDB(TemplatesDB):
 
     def __dict__(self):
         self._data.copy()
+
+    def get_all_templates(self):
+        return self._data.keys()
