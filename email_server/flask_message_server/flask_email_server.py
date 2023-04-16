@@ -107,11 +107,8 @@ class FlaskMessageServer(FlaskServer, MessageServer):
     @FlaskServer._SERVER.route("/template/<template>")
     @login_required
     def template_fetch(template:str):
-        template_path = FlaskMessageServer.server_instace._template_db.get_path(template)
         print(template)
-        with template_path.open("rb") as f:
-            image_encoding=b64encode(f.read())
-        return image_encoding
+        return FlaskMessageServer.server_instace._template_db.get_encoding(template)
 
     @staticmethod
     @FlaskServer._SERVER.route("/elevator/<elevator_id>")

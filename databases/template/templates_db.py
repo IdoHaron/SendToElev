@@ -10,7 +10,7 @@ class TemplatesDB(MapDB, ABC):
         self._load_db()
 
     @abstractmethod
-    def get_path(self, template_name: str):
+    def get_encoding(self, template_name: str):
         raise NotImplementedError
 
     @abstractmethod

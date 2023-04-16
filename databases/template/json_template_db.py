@@ -22,10 +22,10 @@ class JsonTemplatesDB(TemplatesDB):
         #     self._data[template] = Template(_data[template], lines)
         self._data = _data
 
-    def get_path(self, template_name: str) -> str:
-        print(self._data)
-        template_path = self._path.parent / self._data[template_name]
-        return template_path
+    def get_encoding(self, template_name: str) -> str:
+        print(template_name)
+        return self._data[template_name]
+
 
     def __dict__(self):
         self._data.copy()
