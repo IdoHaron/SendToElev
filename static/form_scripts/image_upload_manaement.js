@@ -9,14 +9,7 @@ class UserFileUpload{
         file_reader_instance.onload = function() {
             const image_to_present = file_reader_instance.result;
             const image_canvas = document.getElementById(ImageCanvasManagement.pointer_to_canvas)
-            ImageCanvasManagement.clear_canvas(image_canvas);
-            const ctx = image_canvas.getContext("2d");
-            var background = new Image();
-            background.src = image_to_present;
-            background.onload  = ()=>{
-                ImageCanvasManagement.resize_canvas(image_canvas, background.naturalWidth, background.naturalHeight);
-                ctx.drawImage(background, 0, 0);
-            }
+            ImageCanvasManagement.upload_image_to_canvas(image_canvas, image_to_present);
         };
     }
 }

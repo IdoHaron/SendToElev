@@ -19,3 +19,13 @@ async function sumbit_editied_image(event){
 
 };
 
+
+async function on_change_template(element_pointer){
+    const current_template =element_pointer.value;
+    if(current_template == 0){
+        return;
+    }
+    const image_encoding = NetworkUtils.request_from_route("templae/"+current_template);
+    const image_canvas = document.getElementById(ImageCanvasManagement.pointer_to_canvas)
+    ImageCanvasManagement.upload_image_to_canvas(image_canvas, image_encoding);
+}

@@ -13,4 +13,14 @@ class ImageCanvasManagement{
     static convert_to_hex(canvas_pointer){
         return canvas_pointer.toDataURL();
     }
+    static upload_image_to_canvas(canvas_pointer, image_encoding){
+        ImageCanvasManagement.clear_canvas(canvas_pointer);
+        const ctx = canvas_pointer.getContext("2d");
+        var background = new Image();
+        background.src = image_encoding;
+        background.onload  = ()=>{
+            ImageCanvasManagement.resize_canvas(canvas_pointer, background.naturalWidth, background.naturalHeight);
+            ctx.drawImage(background, 0, 0);
+        }
+    }
 }
