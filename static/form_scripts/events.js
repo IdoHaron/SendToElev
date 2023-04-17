@@ -1,5 +1,6 @@
 const to_board_select = "board"
 const board_form = "message_construct"
+const canvas = new fabric.Canvas("edit_image_canvas");
 
 async function onload_body(){
     await sleep(10);
@@ -28,4 +29,14 @@ async function on_change_template(element_pointer){
     const image_encoding = NetworkUtils.request_from_route("template/"+current_template);
     const image_canvas = document.getElementById(ImageCanvasManagement.pointer_to_canvas)
     ImageCanvasManagement.upload_image_to_canvas(image_canvas, image_encoding);
+}
+
+
+function add_text_to_canvas(event){
+    event.preventDefault();
+    const text = document.getElementById("text_on_image").value;
+    var canvas_text = new fabric.Text(text, {
+        fill: 'black'
+    });
+    canvas.add(canvas_text);
 }

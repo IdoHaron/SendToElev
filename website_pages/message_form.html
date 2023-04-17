@@ -1,6 +1,6 @@
 <html>
     <head>
-    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
+    <script src="https://unpkg.com/fabric@5.3.0/dist/fabric.min.js"></script>
     <script src="{{url_for('static', filename='NetworkUtils.js')}}"></script>
     <script src="{{url_for('static', filename='format_message.js')}}"></script>
     <script src="{{url_for('static', filename='utils.js')}}"></script>
@@ -23,12 +23,13 @@
                 <option value="templates" selected="selected">templates</option>
                 <option value="user_image">upload image</option>
             </select>
-            <select id="templates">
+            <select id="templates" onchange="on_change_template(this)">
                 {% for template in templates: %}
                     <option id="{{template}}" name="template_options">{{template}}</option>
                 {% endfor %}
             </select>
             <input type="file" id="user_image" name="user_image" accept=".jpg, .jpeg, .png" onchange="UserFileUpload.on_file_upload(this)">
+            <input type="text" id="text_on_image">
             <br>
             choose board:
             <select id="board">
@@ -38,6 +39,7 @@
             </select>
             <br>
             <button value="send_image" onclick="sumbit_editied_image(event)">send message request</button>
+            <button onclick="add_text_to_canvas(event)">add text</button>
         </form>
         <canvas id="edit_image_canvas" width="200" height="100"></canvas>
     </body>
