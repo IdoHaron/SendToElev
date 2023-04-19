@@ -8,14 +8,18 @@ from databases.users_board.users_board import UsersBoard
 from databases.elevator_board.json.json_based import JsonElevatorBoardsTable
 from databases.template.json_template_db import JsonTemplatesDB
 from pathlib import Path
+from os import environ
 from os import getcwd
 from databases.screen_dbs.json.screen_db_json import ScreenJsonDB
 databases = Path(getcwd())/"databases"
 print(databases)
+port = environ.get('PORT')
+
 board_int = JsonElevatorBoardsTable(databases /"actual_dbs"/"ElevatorBoard.json")
 # users_db = UsersBoard(Path("databases/actual_dbs/users_db.json"))
 
 json_template_db = JsonTemplatesDB(databases/"templates"/"templates.json")
 screen_db = ScreenJsonDB(path_to_db=databases/"actual_dbs"/"current_image_board.json")
 
-FlaskMessageServer(DummyInput(), EverythingPasses(), board_int, template_db=json_template_db, screen_db=screen_db)
+FlaskMessageServer(DummyInput(), EverythingPasses(), board_int, template_db=json_template_db, screen_db=screen_db,
+                   port=int(port))
