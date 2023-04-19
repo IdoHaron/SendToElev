@@ -8,7 +8,7 @@ from pathlib import Path
 
 class GeneralUserDBEntry(ABC):
     def __init__(self, database_path: Path):
-        self._database_path = database_path
+        self.database_path = database_path
 
     @abstractmethod
     def fetch_info_by_id(self, user_id: UserId) -> List[GeneralUserDBEntry]:

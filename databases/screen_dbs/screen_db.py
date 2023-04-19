@@ -6,7 +6,7 @@ class ScreenDB:
 
     def __init__(self, path_current_db_state):
         self._current_db_state:dict = self._load_db(path_current_db_state)
-        self._path_to_db =path_current_db_state
+        self.database_path =path_current_db_state
 
     @abstractmethod
     def _load_db(self, path_current_db_state):

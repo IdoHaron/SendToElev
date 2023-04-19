@@ -7,16 +7,22 @@ from json import load
 from databases.elevator_board.elivator_board_entry import ElevatorBoardEntry
 from utils.data_types import UserId
 from exceptions.database_error.exceptions import ValueNotFound
+from databases.json_db import JsonDB
 
 
-class JsonElevatorBoardsTable(ElevatorBoardsTable):
+class JsonElevatorBoardsTable(ElevatorBoardsTable, JsonDB):
     def __init__(self, path_to_json:Path):
         super().__init__(path_to_json)
         self.json_content:dict = {}
-        self.connect_to_db(self._database_path)
+        self.connect_to_db(self.database_path)
+
+
+    def __dict__(self):
+        return self.json_content.copy()
 
     def connect_to_db(self, database_path:Path):
-        with self._database_path.open("r") as f:
+        print(database_path)
+        with self.database_path.open("r") as f:
             self.json_content = load(f)
 
     def value_in_database(self, value_in_db:str):

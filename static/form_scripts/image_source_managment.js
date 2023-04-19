@@ -22,8 +22,7 @@ class ImgSrcManagement{
         }
         show_element(document.getElementById(image_input_type));
         document.getElementById(image_input_type).value ="";
-        const canvas_element = document.getElementById(ImageCanvasManagement.pointer_to_canvas)
-        ImageCanvasManagement.clear_canvas(canvas_element);
+        our_canvas.clear_canvas();
     } 
 }
 

@@ -6,7 +6,7 @@ from typing import List
 
 class TemplatesDB(MapDB, ABC):
     def __init__(self, path_to_template_db: Path):
-        self._path = path_to_template_db
+        self.database_path = path_to_template_db
         self._load_db()
 
     @abstractmethod

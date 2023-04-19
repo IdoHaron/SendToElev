@@ -2,8 +2,10 @@ from databases.screen_dbs.screen_db import ScreenDB
 from pathlib import Path
 from utils.decorators import singleton
 from json import load
+from databases.json_db import JsonDB
+
 @singleton
-class ScreenJsonDB(ScreenDB):
+class ScreenJsonDB(ScreenDB,JsonDB):
     def __init__(self, path_to_db):
         super().__init__(path_to_db)
 
