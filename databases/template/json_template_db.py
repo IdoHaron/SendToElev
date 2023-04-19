@@ -15,6 +15,7 @@ class JsonTemplatesDB(TemplatesDB, JsonDB):
     def _load_db(self):
         with self.database_path.open("r") as f:
             _data = load(f)
+        print(self.database_path)
         self._data = _data
         # for template in _data:
         #     lines = []

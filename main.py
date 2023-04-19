@@ -13,8 +13,9 @@ from os import getcwd
 from databases.screen_dbs.json.screen_db_json import ScreenJsonDB
 databases = Path(getcwd())/"databases"
 print(databases)
-port = environ.get('PORT')
-
+port = 3000
+if False:
+    port = environ.get('PORT')
 board_int = JsonElevatorBoardsTable(databases /"actual_dbs"/"ElevatorBoard.json")
 # users_db = UsersBoard(Path("databases/actual_dbs/users_db.json"))
 

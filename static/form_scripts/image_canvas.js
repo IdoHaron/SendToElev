@@ -45,7 +45,6 @@ class ImageCanvasManagement{
         };
         img.src = image_encoding
 
-        console.log(image_encoding);
         /*this.clear_canvas();
         this.pointer_to_canvas.setBackgroundImage(image_encoding, this.pointer_to_canvas.renderAll.bind(this.pointer_to_canvas), {
             height: this.pointer_to_canvas.height,
