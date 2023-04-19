@@ -30,7 +30,7 @@ class FlaskMessageServer(FlaskServer, MessageServer):
                  template_db:TemplatesDB,
                  screen_db:ScreenDB,
                  wanted_module_name: str = __name__,
-                 host: str = "127.0.0.1", port: int = 3000):
+                 host: str = "127.0.0.1", port: int = 80):
         FlaskServer.__init__(self, wanted_module_name=wanted_module_name, path_to_templates=Path("website_pages"))
         MessageServer.__init__(self, message_manager, security_module)
         self.user_to_screen_db_class = user_to_screen_db_class

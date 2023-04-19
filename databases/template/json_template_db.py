@@ -15,13 +15,13 @@ class JsonTemplatesDB(TemplatesDB, JsonDB):
     def _load_db(self):
         with self.database_path.open("r") as f:
             _data = load(f)
-        self._data = {}
+        self._data = _data
         # for template in _data:
         #     lines = []
         #     for line in template["lines"]:
         #         lines.append(from_dict(LineDesign, line))
         #     self._data[template] = Template(_data[template], lines)
-        self._data = _data
+        # self._data = _data
 
     def get_encoding(self, template_name: str) -> str:
         print(template_name)
